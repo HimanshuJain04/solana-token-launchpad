@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "@/components/common/Navbar";
+import { WalletProvider } from "@solana/wallet-adapter-react";
+import { CustomWalletProvider } from "@/providers/CustomWalletProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,10 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="">
+        <CustomWalletProvider>
+          <div className="flex flex-col justify-start min-h-screen w-full">
+            <Navbar />
+            <div className="flex-grow ">{children}</div>
+          </div>
+        </CustomWalletProvider>
       </body>
     </html>
   );
